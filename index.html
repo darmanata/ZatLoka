@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZatLoka — Media Pembelajaran IPA Terintegrasi Kearifan Lokal Bali</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/materi.css">
+
+    <!-- Lottie Web CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Overlay Peringatan Rotasi Layar (Portrait Mode) -->
+    <div id="portrait-warning">
+        <div class="warning-content">
+            <div class="phone-icon-wrapper">
+                <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                    <line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+            </div>
+            <h2>Silakan Putar Perangkat Anda</h2>
+            <p>Aplikasi ini dirancang untuk dijalankan dalam mode <strong>Landscape (Horizontal)</strong> demi
+                pengalaman belajar yang optimal.</p>
+        </div>
+    </div>
+
+    <!-- Container Utama Aplikasi SPA -->
+    <div id="app-container">
+
+        <!-- ======================================================== -->
+        <!-- 1. LOADING SCREEN -->
+        <!-- ======================================================== -->
+        <section id="loading-screen" class="app-screen active">
+            <!-- Canvas untuk Animasi Partikel 3D-Like -->
+            <canvas id="particles-canvas"></canvas>
+
+            <!-- Header Logos -->
+            <header class="loading-header">
+                <img src="assets/images/logo-undiksha.webp" alt="Logo Undiksha" class="uni-logo">
+                <img src="assets/images/logo-merdeka-belajar.webp" alt="Logo Merdeka Belajar" class="merdeka-logo">
+            </header>
+
+            <!-- Center Content Area -->
+            <main class="loading-center">
+                <h1 class="app-title-glowing">ZatLoka</h1>
+                <p class="app-tagline">Eksplorasi Dunia Materi & Kearifan Lokal Bali</p>
+            </main>
+
+            <!-- Footer Loading Area -->
+            <footer class="loading-footer">
+                <div class="progress-container">
+                    <div class="progress-bar-crystal" id="loading-progress-bar"></div>
+                </div>
+                <div class="progress-text-wrapper">
+                    <span id="loading-percentage">0%</span>
+                    <span id="loading-status">Memuat partikel sains...</span>
+                </div>
+            </footer>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 2. MENU BERANDA (DASHBOARD UTAMA) -->
+        <!-- ======================================================== -->
+        <section id="home-screen" class="app-screen">
+            <!-- Header Beranda -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <span class="chapter-badge">BAB 2</span>
+                    <h2 class="chapter-title">Zat & Perubahannya</h2>
+                </div>
+
+                <div class="header-right">
+                    <!-- Widget Profil Kapsul -->
+                    <div class="profile-capsule" id="profile-widget">
+                        <img src="assets/images/logo-undiksha.webp" alt="Avatar" class="avatar-img" id="widget-avatar">
+                        <div class="profile-info">
+                            <span class="profile-name" id="widget-name">Siswa Baru</span>
+                            <div class="profile-sub">
+                                <span class="profile-rank" id="widget-rank">Detektif Pemula</span>
+                                <span class="divider">•</span>
+                                <span class="profile-exp" id="widget-exp">✨ 0 EXP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Aksi Kanan Atas -->
+                    <div class="header-actions">
+                        <button class="action-btn" id="audio-toggle-btn" title="Pengaturan Suara">
+                            <!-- Icon Mute / Unmute (Updated by JS) -->
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                            </svg>
+                        </button>
+                        <button class="action-btn" id="help-btn" title="Bantuan">?</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Grid Menu Utama -->
+            <main class="dashboard-menu">
+                <div class="menu-grid">
+                    <!-- Kartu 1: Eksplorasi Zat (Terbesar & Paling Menonjol) -->
+                    <div class="menu-card featured-card" data-page="materi">
+                        <div class="card-glow"></div>
+                        <div class="card-icon-container">
+                            <div class="micro-molecules"></div>
+                            <span class="card-number">01</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Eksplorasi Zat</h3>
+                            <p>Materi Utama & Peta Detektif Zat</p>
+                        </div>
+                    </div>
+
+                    <!-- Grid Kanan untuk 4 kartu lainnya -->
+                    <div class="grid-sub-cards">
+                        <!-- Kartu 2: Loka-Play -->
+                        <div class="menu-card" data-page="game">
+                            <div class="card-glow"></div>
+                            <div class="card-icon-container">
+                                <span class="card-number">02</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Loka-Play</h3>
+                                <p>Arena Game Etnosains Bali</p>
+                            </div>
+                        </div>
+
+                        <!-- Kartu 3: Uji Kompetensi -->
+                        <div class="menu-card" data-page="quiz">
+                            <div class="card-glow"></div>
+                            <div class="card-icon-container">
+                                <span class="card-number">03</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Kuis</h3>
+                                <p>Kuis Gamifikasi & Evaluasi</p>
+                            </div>
+                        </div>
+
+                        <!-- Kartu 4: Nonton & Amati -->
+                        <div class="menu-card" data-page="video">
+                            <div class="card-glow"></div>
+                            <div class="card-icon-container">
+                                <span class="card-number">04</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Nonton & Amati</h3>
+                                <p>Galeri Eksperimen Tradisional</p>
+                            </div>
+                        </div>
+
+                        <!-- Kartu 5: Info Akademik -->
+                        <div class="menu-card" data-page="info">
+                            <div class="card-glow"></div>
+                            <div class="card-icon-container">
+                                <span class="card-number">05</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Info Akademik</h3>
+                                <p>Kurikulum & Profil Pengembang</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 3. SCREEN PLACEHOLDERS (SPA NAVIGATION TARGETS) -->
+        <!-- ======================================================== -->
+        <section id="materi-screen" class="app-screen sub-screen materi-bright-theme">
+            <!-- Peta Level View -->
+            <div id="materi-level-map" class="materi-level-map">
+                <div class="level-map-header">
+                    <button class="back-btn" data-target="home">← Beranda</button>
+                    <h2>Peta Eksplorasi Zat</h2>
+                    <p>Pilih level detektif sains untuk memulai penyelidikan zat!</p>
+                </div>
+                <div class="level-buttons-container">
+                    <button class="level-map-btn" data-level="1">
+                        <span class="level-num">1</span>
+                        <div class="level-btn-text">
+                            <span class="level-title">Level 1: Wujud Zat & Model Partikel</span>
+                            <span class="level-spoiler">Penyulingan Arak Bali & Susunan Partikel</span>
+                        </div>
+                        <span class="level-status-icon">🔓 Mulai</span>
+                    </button>
+                    <button class="level-map-btn" data-level="2">
+                        <span class="level-num">2</span>
+                        <div class="level-btn-text">
+                            <span class="level-title">Level 2: Perubahan Wujud & Titik Suhu</span>
+                            <span class="level-spoiler">Es Daluman, Garam Kusamba, Kapur Barus & Titik Didih</span>
+                        </div>
+                        <span class="level-status-icon">🔓 Mulai</span>
+                    </button>
+                    <button class="level-map-btn" data-level="3">
+                        <span class="level-num">3</span>
+                        <div class="level-btn-text">
+                            <span class="level-title">Level 3: Perubahan Fisika & Kimia</span>
+                            <span class="level-spoiler">Pembakaran Dupa & Kartu Analisis</span>
+                        </div>
+                        <span class="level-status-icon">🔓 Mulai</span>
+                    </button>
+                    <button class="level-map-btn" data-level="4">
+                        <span class="level-num">4</span>
+                        <div class="level-btn-text">
+                            <span class="level-title">Level 4: Kerapatan & Massa Jenis</span>
+                            <span class="level-spoiler">Massa Jenis Benda, Kolam Massa Jenis & Perhitungan</span>
+                        </div>
+                        <span class="level-status-icon">🔓 Mulai</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header Eksplorasi Zat -->
+            <header class="materi-header" id="materi-header">
+                <button class="back-btn" id="materi-home-btn">← Peta Level</button>
+                <div class="materi-header-info">
+                    <span class="materi-badge" id="materi-level-badge">Level 1: Detektif Pemula</span>
+                    <h2 class="materi-title" id="materi-slide-title">Rahasia Penyulingan Arak Bali</h2>
+                </div>
+                <div class="materi-progress-dots" id="materi-dots-container">
+                    <span class="progress-dot active" data-target-slide="1"></span>
+                    <span class="progress-dot" data-target-slide="2"></span>
+                    <span class="progress-dot" data-target-slide="3"></span>
+                    <span class="progress-dot" data-target-slide="4"></span>
+                    <span class="progress-dot" data-target-slide="5"></span>
+                    <span class="progress-dot" data-target-slide="6"></span>
+                </div>
+            </header>
+
+            <!-- Main Interactive Content Container -->
+            <main class="materi-main" id="materi-main-content">
+
+                <!-- SLIDE 1 (LEVEL 1.1: Rahasia Penyulingan Arak Bali) -->
+                <div class="materi-slide active" data-slide="1">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">🔍</span>
+                        <p>Ketuk salah satu objek pada alat penyulingan arak di bawah ini untuk menyelidiki wujudnya!
+                        </p>
+                    </div>
+                    <div class="arak-lab-container">
+                        <div class="arak-lab-wrapper">
+                            <!-- Stacked layers (Visuals) -->
+                            <img src="assets/images/level1/tungku-panci.png" alt="Tungku Panci"
+                                style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 10;">
+                            <img src="assets/images/level1/bambu-suling.png" alt="Bambu Suling"
+                                style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 11;">
+                            <img src="assets/images/level1/tetesan-cair.png" alt="Tetesan Cair" class="animate-drip"
+                                style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 12;">
+                            <img src="assets/images/level1/uap-gas.png" alt="Uap Gas" class="animate-puff"
+                                style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 13;">
+
+                            <!-- Invisible target regions for clicks -->
+                            <div class="arak-hotspot" id="hotspot-bambu"
+                                style="position: absolute; top:15%; left: 32%; width: 44%; height: 8%; z-index: 20; transform: rotate(13deg);"
+                                title="Bambu Penyulingan">
+                                <span class="pulse-ring" style="border-radius: 8px;"></span>
+                            </div>
+
+                            <div class="arak-hotspot" id="hotspot-tetesan"
+                                style="position: absolute; top: 39%; left: 75%; width: 7%; height: 15%; z-index: 20;"
+                                title="Tetesan Cairan Arak">
+                                <span class="pulse-ring" style="border-radius: 50%;"></span>
+                            </div>
+
+                            <div class="arak-hotspot" id="hotspot-uap"
+                                style="position: absolute; top: 22%; left: 35%; width: 14%; height: 26%; z-index: 20;"
+                                title="Uap Panas">
+                                <span class="pulse-ring" style="border-radius: 50%;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 (LEVEL 1.2: Menembus Partikel Rahasia) -->
+                <div class="materi-slide" data-slide="2">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">🔬</span>
+                        <p>Pilih tab wujud zat di bawah ini untuk melihat susunan partikel mikroskopisnya!</p>
+                    </div>
+                    <div class="tabs-materi-container">
+                        <div class="tabs-buttons">
+                            <button class="tab-materi-btn active" data-tab="padat">Tab Padat</button>
+                            <button class="tab-materi-btn" data-tab="cair">Tab Cair</button>
+                            <button class="tab-materi-btn" data-tab="gas">Tab Gas</button>
+                        </div>
+                        <div class="tabs-content">
+                            <!-- Padat Tab Content -->
+                            <div class="tab-pane active" id="tab-padat">
+                                <div class="pane-split">
+                                    <div class="pane-visual">
+                                        <div class="particle-box box-padat">
+                                            <img src="assets/images/level1/partikel-padat.png" alt="Partikel Padat"
+                                                class="particle-img-padat">
+                                        </div>
+                                    </div>
+                                    <div class="pane-info">
+                                        <h4>Catatan Penting Detektif:</h4>
+                                        <p>Tahukah kamu? Partikel pada benda padat seperti bambu sebenarnya
+                                            <strong>TIDAK DIAM MUTLAK!</strong> Partikelnya selalu bergetar di tempatnya
+                                            dan tetap memiliki rongga/jarak antarpartikel yang sangat sempit, meskipun
+                                            ikatan antarpartikelnya sangat kuat.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Cair Tab Content -->
+                            <div class="tab-pane" id="tab-cair">
+                                <div class="pane-split">
+                                    <div class="pane-visual">
+                                        <div class="particle-box box-cair">
+                                            <img src="assets/images/level1/partikel-cair.png" alt="Partikel Cair"
+                                                class="particle-img-cair">
+                                        </div>
+                                    </div>
+                                    <div class="pane-info">
+                                        <h4>Catatan Penting Detektif:</h4>
+                                        <p>Partikel zat cair seperti arak tersusun agak renggang. Gaya tarik
+                                            antarpartikelnya tidak sekuat zat padat, sehingga partikel cair dapat
+                                            bergerak bebas bergeser namun tidak sampai lepas dari kelompoknya.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Gas Tab Content -->
+                            <div class="tab-pane" id="tab-gas">
+                                <div class="pane-split">
+                                    <div class="pane-visual">
+                                        <div class="particle-box box-gas">
+                                            <img src="assets/images/level1/partikel-gas.png" alt="Partikel Gas"
+                                                class="particle-img-gas">
+                                        </div>
+                                    </div>
+                                    <div class="pane-info">
+                                        <h4>Catatan Penting Detektif:</h4>
+                                        <p>Partikel zat gas tersusun sangat berjauhan. Gaya tarik antarpartikelnya
+                                            sangat lemah sehingga partikel gas bebas melesat cepat ke seluruh sudut
+ruangan.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3 (LEVEL 2.1: Rahasia Es Daluman Bali) -->
+                <div class="materi-slide" data-slide="3">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">🥤</span>
+                        <p>Pilih aksi di bawah ini untuk mengamati proses perubahan wujud meleleh dan membeku!</p>
+                    </div>
+                    <div class="evap-container">
+                        <div class="evap-visual-box" style="background: #f0fdf4;">
+                            <img src="assets/images/level2/es-daluman-padat.png" alt="Es Daluman" id="daluman-img" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 10;">
+                        </div>
+                        <div class="evap-control-box">
+                            <div class="action-buttons-flex" style="display: flex; gap: 0.75rem; width: 100%;">
+                                <button class="materi-action-btn" id="btn-panas-daluman" style="flex: 1; padding: 0.6rem; font-size: 0.8rem; font-weight: 700; border-radius: 30px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">🔥 Panaskan Es</button>
+                                <button class="materi-action-btn" id="btn-beku-daluman" style="flex: 1; padding: 0.6rem; font-size: 0.8rem; font-weight: 700; border-radius: 30px; background: linear-gradient(135deg, #0284c7, #0369a1); color: white;">❄️ Bekukan Air</button>
+                            </div>
+                            <div class="evap-dynamic-info" id="daluman-text-desc" style="flex-grow: 1; overflow-y: auto; font-size: clamp(0.7rem, 2vh, 0.8rem); line-height: 1.4; color: #475569; padding: 0.5rem; background: white; border-radius: 12px; border: 1px solid #e2e8f0; min-height: 0;">
+                                Es Daluman dalam kondisi beku (padat). Pilih aksi "Panaskan Es" untuk melihat proses pelelehan zat!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 4 (LEVEL 2.2: Tradisi Penyulingan Arak (Menguap & Mengembun)) -->
+                <div class="materi-slide" data-slide="4">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">💨</span>
+                        <p>Pilih aksi di bawah ini untuk menyelidiki proses menguap dan mengembun!</p>
+                    </div>
+                    <div class="arak-lab-container">
+                        <div class="arak-lab-wrapper">
+                            <!-- Stacked layers (Visuals) -->
+                            <img src="assets/images/level1/tungku-panci.png" alt="Tungku Panci" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 10;">
+                            <img src="assets/images/level1/bambu-suling.png" alt="Bambu Suling" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 11;">
+                            <img src="assets/images/level1/tetesan-cair.png" alt="Tetesan Cair" id="evap-tetesan-l22" class="animate-drip" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 12; opacity: 0; transition: opacity 0.5s ease;">
+                            <img src="assets/images/level1/uap-gas.png" alt="Uap Gas" id="evap-uap-l22" class="animate-puff" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 13; opacity: 0; transition: opacity 0.5s ease;">
+                        </div>
+                    </div>
+                    <div class="evap-control-box" style="margin-top: 0.5rem;">
+                        <div class="action-buttons-flex" style="display: flex; gap: 0.75rem; width: 100%;">
+                            <button class="materi-action-btn" id="btn-didih-l22" style="flex: 1; padding: 0.6rem; font-size: 0.8rem; font-weight: 700; border-radius: 30px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: white;">🔥 Didihkan Cairan</button>
+                            <button class="materi-action-btn" id="btn-dingin-l22" style="flex: 1; padding: 0.6rem; font-size: 0.8rem; font-weight: 700; border-radius: 30px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white;">❄️ Dinginkan Uap</button>
+                        </div>
+                        <div class="evap-dynamic-info" id="evap-text-l22" style="flex-grow: 1; overflow-y: auto; font-size: clamp(0.7rem, 2vh, 0.8rem); line-height: 1.4; color: #475569; padding: 0.5rem; background: white; border-radius: 12px; border: 1px solid #e2e8f0; min-height: 0;">
+                            Pilih aksi di atas untuk memulai penyelidikan proses penguapan dan pengembunan pada penyulingan arak Bali!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 5 (LEVEL 2.3: Pengharum Kamar (Menyublim)) -->
+                <div class="materi-slide" data-slide="5">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">🔮</span>
+                        <p>Tekan tombol untuk melihat bagaimana zat padat berubah langsung menjadi gas!</p>
+                    </div>
+                    <div class="evap-container">
+                        <div class="evap-visual-box" style="background: #fafaf9;">
+                            <!-- Container bowl -->
+                            <img src="assets/images/level2/wadah-kapur.png" alt="Wadah Kapur" id="sublim-bg" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 10;">
+                            <!-- Kapur padat -->
+                            <img src="assets/images/level2/kapur-padat.png" alt="Kapur Padat" id="sublim-kapur" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 12; transition: opacity 0.5s ease;">
+                            <!-- Gas sublimasi -->
+                            <img src="assets/images/level2/gas-sublimasi.png" alt="Gas Sublimasi" id="sublim-gas" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 13; opacity: 0; transition: opacity 0.5s ease, transform 1s ease;">
+                        </div>
+                        <div class="evap-control-box">
+                            <div class="action-buttons-flex" style="display: flex; gap: 0.75rem; width: 100%;">
+                                <button class="materi-action-btn" id="btn-panas-barus" style="flex: 1; padding: 0.6rem; font-size: 0.8rem; font-weight: 700; border-radius: 30px; background: linear-gradient(135deg, #d97706, #b45309); color: white;">🔥 Panaskan Kapur Barus</button>
+                            </div>
+                            <div class="evap-dynamic-info" id="sublim-text-desc" style="flex-grow: 1; overflow-y: auto; font-size: clamp(0.7rem, 2vh, 0.8rem); line-height: 1.4; color: #475569; padding: 0.5rem; background: white; border-radius: 12px; border: 1px solid #e2e8f0; min-height: 0;">
+                                Tekan tombol "Panaskan Kapur Barus" untuk mengamati proses menyublim zat padat menjadi gas!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 6 (LEVEL 2.4: Tradisi Garam Kusamba (Mengkristal)) -->
+                <div class="materi-slide" data-slide="6">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">☀️</span>
+                        <p>Geser ikon matahari untuk menguapkan air dan membentuk kristal garam!</p>
+                    </div>
+                    <div class="evap-container">
+                        <div class="evap-visual-box" style="background: #e0f2fe;">
+                            <!-- Wood trough base -->
+                            <img src="assets/images/level2/palung-kayu.png" alt="Palung Kayu" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 10;">
+                            <!-- Sea water overlay -->
+                            <img src="assets/images/level2/air-laut.png" alt="Air Laut" id="salt-water-img" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 11; transition: opacity 0.2s ease;">
+                            <!-- Salt crystals overlay -->
+                            <img src="assets/images/level2/kristal-garam.png" alt="Kristal Garam" id="salt-crystals-img" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 12; opacity: 0; transition: opacity 0.2s ease;">
+                            <!-- Salt steam overlay -->
+                            <img src="assets/images/level2/uap-air.png" alt="Uap Air" id="salt-steam-img" class="animate-puff" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 13; opacity: 0; transition: opacity 0.2s ease;">
+                        </div>
+                        <div class="evap-control-box">
+                            <div class="slider-wrapper" style="width: 100%;">
+                                <span class="slider-lbl" style="font-weight:700; color:#475569; font-size: 0.8rem;">☀️ Panas Matahari (0% - 100%)</span>
+                                <input type="range" id="salt-sun-slider" class="materi-slider" min="0" max="100" value="0">
+                            </div>
+                            <div class="evap-dynamic-info" id="salt-text-desc" style="flex-grow: 1; overflow-y: auto; font-size: clamp(0.7rem, 2vh, 0.8rem); line-height: 1.4; color: #475569; padding: 0.5rem; background: white; border-radius: 12px; border: 1px solid #e2e8f0; min-height: 0;">
+                                Geser slider matahari ke kanan untuk menguapkan air laut dan membentuk endapan kristal garam tradisional.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 7 (LEVEL 2.5: Batas Suhu Perubahan Wujud) -->
+                <div class="materi-slide" data-slide="7">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">🌡️</span>
+                        <p>Geser slider termometer untuk mengamati fenomena Titik Leleh dan Titik Didih!</p>
+                    </div>
+                    <div class="evap-container">
+                        <div class="evap-visual-box" style="background: #f1f5f9; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem; position: relative;">
+                            <!-- Simple custom CSS thermometer visual -->
+                            <div style="font-size: clamp(1rem, 3.5vh, 1.4rem); font-weight: 800; color: #0284c7; z-index: 10;">
+                                Suhu Air: <span id="temp-val-display" style="background: #e0f2fe; padding: 0.2rem 0.6rem; border-radius: 8px;">25</span> °C
+                            </div>
+                            <div class="thermometer-bar-container" style="position: relative; width: 30px; height: 60%; background: #cbd5e1; border-radius: 15px; border: 3px solid #64748b; overflow: hidden; z-index: 10;">
+                                <div id="thermometer-fill" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 25%; background: linear-gradient(to top, #ef4444, #f87171); transition: height 0.2s ease;"></div>
+                            </div>
+                            <div class="thermometer-bulb" style="width: 44px; height: 44px; background: #ef4444; border-radius: 50%; border: 3px solid #64748b; margin-top: -15px; z-index: 11;"></div>
+                        </div>
+                        <div class="evap-control-box">
+                            <div class="slider-wrapper" style="width: 100%;">
+                                <span class="slider-lbl" style="font-weight:700; color:#475569; font-size: 0.8rem;">🌡️ Geser Suhu (0°C - 100°C)</span>
+                                <input type="range" id="temp-slider-l24" class="materi-slider" min="0" max="100" value="25">
+                            </div>
+                            <div class="evap-dynamic-info" id="temp-text-desc" style="flex-grow: 1; overflow-y: auto; font-size: clamp(0.7rem, 2vh, 0.8rem); line-height: 1.4; color: #475569; padding: 0.5rem; background: white; border-radius: 12px; border: 1px solid #e2e8f0; min-height: 0;">
+                                Geser slider termometer ke arah 0°C untuk mengamati Titik Leleh es, atau ke arah 100°C untuk mengamati Titik Didih air!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 8 (LEVEL 3.1: Pembakaran Dupa & Kartu Analisis) -->
+                <div class="materi-slide" data-slide="8">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">🕯️</span>
+                        <p>Tekan tombol untuk menyalakan dupa dan amati dua jenis perubahan yang terjadi!</p>
+                    </div>
+                    <div class="dupa-container">
+                        <div class="dupa-left">
+                            <div class="dupa-burner-wrapper">
+                                <img src="assets/images/level3/wadah-pasepan.png" alt="Wadah Pasepan" id="dupa-fresh"
+                                    style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 10; transition: opacity 0.5s ease;">
+                                <img src="assets/images/level3/dupa-abu.png" alt="Dupa Abu" id="dupa-burnt"
+                                    style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 11; opacity: 0; transition: opacity 0.5s ease;">
+                                <img src="assets/images/level3/asap-aroma.png" alt="Asap Dupa" id="dupa-smoke"
+                                    style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 12; opacity: 0; transition: opacity 0.5s ease;">
+                            </div>
+                            <button class="materi-action-btn" id="dupa-toggle-btn" style="width: 80%; border-radius: 30px; font-weight: 700; padding: 0.5rem 1rem;">🔥 Nyalakan Dupa</button>
+                        </div>
+                        <div class="dupa-right" id="dupa-analysis-area">
+                            <div class="analysis-placeholder" id="dupa-placeholder">
+                                <span class="placeholder-lock">🔒</span>
+                                <p>Nyalakan dupa untuk memicu pengamatan dan analisis perubahan fisika & kimia.</p>
+                            </div>
+                            <div class="dupa-flip-wrapper hidden" id="dupa-flip-container" style="display: none;">
+                                <!-- Left Card: Fisika -->
+                                <div class="dupa-flip-card" id="card-fisika">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front" style="background:#e0f2fe; border:2px solid #bae6fd; color:#0369a1; text-align:left;">
+                                            <span class="badge-card fisika" style="align-self:flex-start;">Fisika</span>
+                                            <h4 style="margin-top:0.25rem;">Perubahan Fisika</h4>
+                                            <h5 style="color:#0284c7;">Penguapan Aroma Terapi Dupa</h5>
+                                            <p>Saat dupa menghangat, zat wewangian di dalam dupa berubah wujud dari cair menjadi gas aroma terapi yang menyebar ke udara tanpa menghasilkan zat baru.</p>
+                                            <span class="tap-hint" style="font-size:0.65rem; color:#0284c7; margin-top:auto; font-weight:bold; text-align:center; animation: pulseHint 1.5s infinite;">💡 Ketuk untuk membalik</span>
+                                        </div>
+                                        <div class="flip-card-back" style="background:#f0f9ff; border:2px solid #bae6fd; color:#0369a1; text-align:left;">
+                                            <h4 style="border-bottom:1px solid rgba(2,132,199,0.2); padding-bottom:0.15rem; font-size: 0.95rem;">Ciri-Ciri Utama:</h4>
+                                            <ol style="margin:0 0 0.5rem 0; padding-left:0.95rem; line-height:1.3; font-size: 0.75rem;">
+                                                <li>Tidak terbentuk zat jenis baru.</li>
+                                                <li>Sifat zat sebelum dan sesudah perubahan tetap sama.</li>
+                                                <li>Bersifat reversible (dapat kembali ke bentuk semula).</li>
+                                                <li>Hanya melibatkan perubahan wujud atau bentuk fisik.</li>
+                                            </ol>
+                                            <h4 style="border-bottom:1px solid rgba(2,132,199,0.2); padding-bottom:0.15rem; font-size: 0.95rem;">Contoh Etnosains Bali:</h4>
+                                            <ul style="margin:0; padding-left:0.95rem; line-height:1.3; font-size: 0.75rem;">
+                                                <li>Pembuatan kristal garam tradisional di Kusamba (Penguapan air laut).</li>
+                                                <li>Penyulingan uap menjadi tetesan Arak Bali (Mengembun).</li>
+                                                <li>Es batu yang mencair dalam minuman Es.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Right Card: Kimia -->
+                                <div class="dupa-flip-card" id="card-kimia">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front" style="background:#fee2e2; border:2px solid #fecaca; color:#991b1b; text-align:left;">
+                                            <span class="badge-card kimia" style="align-self:flex-start;">Kimia</span>
+                                            <h4 style="margin-top:0.25rem;">Perubahan Kimia</h4>
+                                            <h5 style="color:#b91c1c;">Pembakaran Serbuk Kayu Dupa</h5>
+                                            <p>Api membakar serbuk kayu dupa hingga menghasilkan zat baru yang sifat kimianya berbeda total, berupa abu sisa pembakaran dan gas asap karbon hitam.</p>
+                                            <span class="tap-hint" style="font-size:0.65rem; color:#b91c1c; margin-top:auto; font-weight:bold; text-align:center; animation: pulseHint 1.5s infinite;">💡 Ketuk untuk membalik</span>
+                                        </div>
+                                        <div class="flip-card-back" style="background:#fef2f2; border:2px solid #fecaca; color:#991b1b; text-align:left;">
+                                            <h4 style="border-bottom:1px solid rgba(153,27,27,0.2); padding-bottom:0.15rem; font-size: 0.95rem;">Ciri-Ciri Utama:</h4>
+                                            <ol style="margin:0 0 0.5rem 0; padding-left:0.95rem; line-height:1.3; font-size: 0.75rem;">
+                                                <li>Terbentuk zat baru (irreversible / tidak dapat kembali ke semula).</li>
+                                                <li>Sifat zat baru berbeda total dari zat asal.</li>
+                                                <li>Disertai tanda-tanda reaksi: perubahan warna, timbul gas, endapan, atau perubahan suhu/cahaya.</li>
+                                            </ol>
+                                            <h4 style="border-bottom:1px solid rgba(153,27,27,0.2); padding-bottom:0.15rem; font-size: 0.95rem;">Contoh Etnosains Bali:</h4>
+                                            <ul style="margin:0; padding-left:0.95rem; line-height:1.3; font-size: 0.75rem;">
+                                                <li>Pembakaran dupa harum Bali (serbuk kayu menjadi abu dan asap karbon).</li>
+                                                <li>Fermentasi nira kelapa/ketan menjadi Arak Bali (Perubahan gula menjadi alkohol).</li>
+                                                <li>Pembusukan sisa janur/canang sari menjadi kompos.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 9 (LEVEL 4.1: Rahasia Mengapung, Melayang, dan Tenggelam) -->
+                <div class="materi-slide" data-slide="9">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">⚓</span>
+                        <p>Seret (drag) benda ke kolam untuk menguji kerapatan massa jenisnya! Ketuk benda di air untuk mengembalikannya.</p>
+                    </div>
+                    <div class="density-container">
+                        <div class="density-tray">
+                            <div class="drag-item" draggable="true" id="density-drag-bambu" data-item="bambu">
+                                <img src="assets/images/level4/bambu-potong.png" alt="Bambu Potong">
+                                <span>Bambu Potong</span>
+                            </div>
+                            <div class="drag-item" draggable="true" id="density-drag-telur" data-item="telur">
+                                <img src="assets/images/level4/telur-mentah.png" alt="Telur Mentah">
+                                <span>Telur Mentah</span>
+                            </div>
+                            <div class="drag-item" draggable="true" id="density-drag-koin" data-item="koin">
+                                <img src="assets/images/level4/koin-logam.png" alt="Koin Logam">
+                                <span>Koin Logam</span>
+                            </div>
+                        </div>
+                        <div class="density-dropzone-wrapper">
+                            <div class="density-dropzone" id="density-pond">
+                                <img src="assets/images/level4/kolam-air.png" alt="Kolam Air"
+                                    style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; z-index: 10;">
+                                <div class="pond-drop-area"
+                                    style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 12;">
+                                    <!-- Targets will land here -->
+                                    <img src="assets/images/level4/bambu-potong.png" alt="Bambu Terapung"
+                                        class="pond-floater hidden" id="pond-floater-bambu" style="cursor: pointer;">
+                                    <img src="assets/images/level4/telur-mentah.png" alt="Telur Melayang"
+                                        class="pond-floater hidden" id="pond-floater-telur" style="cursor: pointer; top: 48% !important; left: 45% !important; width: 10% !important; z-index: 14; animation: floatInWater 4s infinite ease-in-out;">
+                                    <img src="assets/images/level4/koin-logam.png" alt="Koin Tenggelam"
+                                        class="pond-sinker hidden" id="pond-sinker-koin" style="cursor: pointer; top: 68% !important; left: 60% !important; width: 8% !important; z-index: 11;">
+                                </div>
+                                <div class="dropzone-indicator">TARUH DI SINI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 10 (LEVEL 4.2: Perhitungan Massa Jenis) -->
+                <div class="materi-slide" data-slide="10">
+                    <div class="slide-instruction">
+                        <span class="instruction-icon">✏️</span>
+                        <p>Pahamilah langkah-langkah perhitungan massa jenis bambu berikut dengan saksama!</p>
+                    </div>
+                    <div class="evap-container" style="grid-template-columns: 1fr;">
+                        <div class="evap-dynamic-info" style="flex-grow: 1; overflow-y: auto; padding: 1rem 1.5rem; background: rgba(240, 244, 248, 0.9); border-radius: 16px; border: 1px solid rgba(15, 23, 42, 0.05); display: flex; flex-direction: column; gap: 0.75rem; min-height: 0; box-sizing: border-box; width: 100%;">
+                            <div style="font-weight: 700; color: #0284c7; font-size: clamp(0.9rem, 2.5vh, 1.15rem); border-bottom: 2px solid rgba(2, 132, 199, 0.15); padding-bottom: 0.4rem;">
+                                Soal Tantangan Massa Jenis:
+                            </div>
+                            <p style="font-size: clamp(0.75rem, 2.2vh, 0.85rem); color: #334155; line-height: 1.4; margin: 0; font-weight: 600;">
+                                Seorang perajin di Bali ingin menguji kerapatan sepotong kayu bambu suling arak. Bambu tersebut memiliki massa (m) = 120 gram dan volume (V) = 150 cm³. Berapakah nilai massa jenis (ρ) bambu tersebut?
+                            </p>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.25rem;">
+                                <div style="background: white; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <strong style="color: #0f172a; font-size: 0.75rem;">1. Diketahui:</strong>
+                                    <div style="font-size: 0.75rem; color: #475569; margin-top: 0.15rem;">
+                                        Massa (m) = 120 gram<br>
+                                        Volume (V) = 150 cm³
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <strong style="color: #0f172a; font-size: 0.75rem;">2. Rumus:</strong>
+                                    <div style="font-size: 0.75rem; color: #475569; margin-top: 0.15rem; font-weight: 700; color: #0284c7;">
+                                        ρ = m / V
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.75rem;">
+                                <div style="background: white; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <strong style="color: #0f172a; font-size: 0.75rem;">3. Perhitungan:</strong>
+                                    <div style="font-size: 0.75rem; color: #475569; margin-top: 0.15rem;">
+                                        ρ = 120 g / 150 cm³<br>
+                                        ρ = 0.8 g/cm³
+                                    </div>
+                                </div>
+                                <div style="background: #e0f2fe; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1.5px solid #bbf7d0;">
+                                    <strong style="color: #0369a1; font-size: 0.75rem;">4. Kesimpulan:</strong>
+                                    <div style="font-size: 0.75rem; color: #0369a1; margin-top: 0.15rem; font-weight: 700;">
+                                        Massa jenis bambu suling tersebut adalah 0.8 g/cm³.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Right Action Buttons for Slide 9 -->
+                            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: auto; padding-top: 0.4rem; border-top: 1px dashed rgba(15, 23, 42, 0.08);">
+                                <button class="materi-action-btn" id="btn-final-home" style="padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 700; border-radius: 30px; background: rgba(15, 23, 42, 0.08); border: 1px solid #cbd5e1; color: #475569;">🏠 Kembali ke Beranda</button>
+                                <button class="materi-action-btn" id="btn-final-quiz" style="padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 700; border-radius: 30px; background: linear-gradient(135deg, #0284c7, #0369a1); color: white;">📝 Lanjutkan ke Kuis</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Final congratulations navigation (hidden initially) -->
+                    <div class="materi-final-overlay hidden" id="materi-final-overlay">
+                        <div class="final-card">
+                            <p>Kamu telah menuntaskan seluruh investigasi level 1 hingga 4. Pengetahuan detektifmu telah
+                                meningkat pesat!</p>
+                            <div class="final-actions">
+                                <button class="btn-final home-back-btn" id="final-home-btn"> Kembali ke Beranda</button>
+                                <button class="btn-final quiz-go-btn" id="final-quiz-btn"> Lanjutkan ke Kuis </button>
+                            </div>
+                        </div>
+                    </div>
+
+            </main>
+
+            <!-- Bottom Navigation Bar -->
+            <footer class="materi-footer" id="materi-footer">
+                <button class="materi-nav-btn" id="materi-prev-btn">
+                    <svg class="materi-arrow-icon" viewBox="0 0 24 24">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor" />
+                    </svg>
+                    <span>Kembali</span>
+                </button>
+                <div class="materi-nav-center">
+                    <span id="materi-slide-number">1 / 6</span>
+                </div>
+                <button class="materi-nav-btn" id="materi-next-btn">
+                    <span>Lanjut</span>
+                    <svg class="materi-arrow-icon" viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor" />
+                    </svg>
+                </button>
+            </footer>
+
+            <!-- Kima Mascot Container (Bottom Right) -->
+            <div id="kima-mascot-container" class="kima-mascot-container">
+                <div class="kima-speech-bubble" id="kima-speech-bubble">
+                    <span class="kima-bubble-text" id="kima-bubble-text">Hebat! Kamu menemukan petunjuk baru, mari amati!</span>
+                </div>
+                <div id="kima-lottie" class="kima-lottie-player"></div>
+            </div>
+
+            <!-- Dark transparent modal popup inside the screen -->
+            <div id="materi-popup" class="materi-popup-overlay">
+                <div class="materi-popup-card">
+                    <button class="materi-popup-close-btn" id="materi-popup-close">&times;</button>
+                    <div class="materi-popup-content" id="materi-popup-body">
+                        <!-- Pop-up content will be inserted here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="game-screen" class="app-screen sub-screen">
+            <header class="sub-screen-header">
+                <button class="back-btn" data-target="home">← Beranda</button>
+                <h2>Loka-Play (Arena Game)</h2>
+            </header>
+            <main class="sub-screen-content">
+                <div class="placeholder-card">
+                    <span class="placeholder-icon">🎮</span>
+                    <h3>Arena Game Etnosains Bali</h3>
+                    <p>Nikmati permainan interaktif mandiri yang mengaitkan fenomena sains dengan budaya Bali:</p>
+                    <ul class="level-list">
+                        <li>🃏 <strong>Card Matching:</strong> Mencocokkan alat/kegiatan tradisional (Paon, Arak Bali,
+                            Garam Kusamba) dengan konsep sains yang sesuai.</li>
+                        <li>🧪 <strong>Laboratorium Virtual Mini:</strong> Mencampur zat dan mengamati partikelnya.</li>
+                    </ul>
+                    <p class="coming-soon">Segera hadir pada pengembangan Tahap 2!</p>
+                </div>
+            </main>
+        </section>
+
+        <section id="quiz-screen" class="app-screen sub-screen">
+            <!-- Dynamic Kuis Container rendered by js/kuis.js -->
+        </section>
+
+        <section id="video-screen" class="app-screen sub-screen">
+            <header class="sub-screen-header">
+                <button class="back-btn" data-target="home">← Beranda</button>
+                <h2>Nonton & Amati</h2>
+            </header>
+            <main class="sub-screen-content">
+                <div class="placeholder-card">
+                    <span class="placeholder-icon">📺</span>
+                    <h3>Galeri Eksperimen Tradisional</h3>
+                    <p>Saksikan video visualisasi fenomena zat di sekitar kita:</p>
+                    <ul class="level-list">
+                        <li>🎥 Pembuatan Garam Tradisional di Pesisir Kusamba (Kristalisasi).</li>
+                        <li>🎥 Proses Tradisional Pembuatan Arak Bali (Destilasi).</li>
+                        <li>🎥 Aktivitas Fisika & Kimia di Dapur Tradisional Bali (Paon).</li>
+                    </ul>
+                    <p class="coming-soon">Segera hadir pada pengembangan Tahap 2!</p>
+                </div>
+            </main>
+        </section>
+
+        <section id="info-screen" class="app-screen sub-screen">
+            <header class="sub-screen-header">
+                <button class="back-btn" data-target="home">← Beranda</button>
+                <h2>Info Akademik & Pengembang</h2>
+            </header>
+            <main class="sub-screen-content">
+                <div class="placeholder-card">
+                    <span class="placeholder-icon">🎓</span>
+                    <h3>Informasi Kurikulum & Pengembang</h3>
+                    <div class="info-details">
+                        <h4>Kurikulum Merdeka (Fase D - SMP Kelas VII)</h4>
+                        <p><strong>Capaian Pembelajaran:</strong> Siswa mampu mengidentifikasi sifat dan karakteristik
+                            zat, membedakan perubahan fisika dan kimia, serta memisahkan campuran sederhana.</p>
+                        <hr class="info-divider">
+                        <h4>Tim Pengembang</h4>
+                        <p>Aplikasi ini dikembangkan oleh mahasiswa S1 Pendidikan IPA, Universitas Pendidikan Ganesha
+                            (Undiksha), Singaraja, Bali.</p>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL POPUPS (DIALOG SYSTEM) -->
+    <!-- ======================================================== -->
+
+    <!-- 1. Modal Bantuan -->
+    <div id="help-modal" class="modal-overlay">
+        <div class="modal-card">
+            <header class="modal-header">
+                <h3>Bantuan Navigasi</h3>
+                <button class="close-modal-btn" data-modal="help-modal">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="help-item">
+                    <span class="help-badge">01</span>
+                    <p><strong>Eksplorasi Zat:</strong> Pelajari konsep Zat & Perubahannya melalui peta tantangan yang
+                        interaktif.</p>
+                </div>
+                <div class="help-item">
+                    <span class="help-badge">02</span>
+                    <p><strong>Loka-Play:</strong> Bermain game bertema etnosains kebudayaan Bali sambil memperkuat
+                        konsep.</p>
+                </div>
+                <div class="help-item">
+                    <span class="help-badge">03</span>
+                    <p><strong>Uji Kompetensi:</strong> Selesaikan evaluasi kuis untuk menguji pemahaman Anda dan
+                        menaikkan pangkat.</p>
+                </div>
+                <div class="help-item">
+                    <span class="help-badge">04</span>
+                    <p><strong>Nonton & Amati:</strong> Tonton video fenomena sains nyata di sekitar adat Bali.</p>
+                </div>
+                <div class="help-item">
+                    <span class="help-badge">05</span>
+                    <p><strong>Profil Kapsul:</strong> Klik avatar profil Anda di pojok kanan atas untuk mengubah nama
+                        dan melihat pencapaian.</p>
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <button class="btn btn-primary close-modal-btn" data-modal="help-modal">Mengerti</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 2. Modal Profil -->
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-card">
+            <header class="modal-header">
+                <h3>Profil Detektif Zat</h3>
+                <button class="close-modal-btn" data-modal="profile-modal">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="profile-edit-section">
+                    <div class="avatar-select-wrapper">
+                        <img src="assets/images/logo-undiksha.webp" alt="Avatar" class="profile-avatar-large"
+                            id="profile-avatar-large">
+                        <p class="avatar-hint">Avatar Siswa</p>
+                    </div>
+                    <div class="profile-edit-inputs">
+                        <div class="input-group">
+                            <label for="student-name-input">Nama Lengkap</label>
+                            <input type="text" id="student-name-input" maxlength="20" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div class="stats-display">
+                            <div class="stat-box">
+                                <span class="stat-label">Gelar Profil</span>
+                                <span class="stat-value" id="profile-rank-val">Calon Ilmuwan</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Total EXP</span>
+                                <span class="stat-value" id="profile-exp-val">0 EXP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn btn-secondary" id="profile-print-btn" type="button">📄 Cetak Laporan</button>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-secondary close-modal-btn" data-modal="profile-modal">Batal</button>
+                    <button class="btn btn-primary" id="save-profile-btn">Simpan</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Audio BGM -->
+    <!-- Catatan: File asli akan dimuat di assets/audio/bgm-opening.mp3 -->
+    <audio id="bgm-player" src="assets/audio/bgm-opening.mp3" loop></audio>
+
+    <!-- JS Scripts -->
+    <script src="js/particles.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/kima-mascot-data.js"></script>
+    <script src="js/materi.js"></script>
+    <script src="js/lokaplay.js"></script>
+    <script src="js/kuis.js"></script>
+</body>
+
+</html>
